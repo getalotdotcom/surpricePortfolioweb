@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Update Your Portfolio - Surprise Choene</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&family=Russo+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="default.css">
+    <link id="theme-style" rel="stylesheet" type="text/css" href="">
+</head>
+
+<body>
+
+    <section class="s1">
+        <div class="main-container">
+            <div class="greeting-wrapper">
+                <h1>Update Your Portfolio</h1>
+            </div>
+
+            <form id="update-portfolio-form" enctype="multipart/form-data">
+                <!-- Personal Details -->
+                <div class="input-group">
+                    <label for="name">Full Name</label>
+                    <input class="input-field" type="text" id="name" name="name" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input class="input-field" type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="bio">Short Bio</label>
+                    <textarea class="input-field" id="bio" name="bio" rows="4" placeholder="Tell us something about yourself"></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="skills">Skills</label>
+                    <textarea class="input-field" id="skills" name="skills" rows="3" placeholder="List your skills (e.g. Python, JavaScript, React)"></textarea>
+                </div>
+
+                <!-- Profile Picture -->
+                <div class="input-group">
+                    <label for="profile_pic">Profile Picture</label>
+                    <input type="file" id="profile_pic_input" name="profile_pic" accept="image/*">
+                    <br>
+                    <img id="preview_pic" src="#" alt="Profile Picture Preview" width="150px" height="150px" style="display:none;">
+                </div>
+
+                <!-- Experience Section -->
+                <div class="input-group">
+                    <label for="experience">Your Experience</label>
+                    <textarea class="input-field" id="experience" name="experience" rows="4" placeholder="List your work or project experience"></textarea>
+                </div>
+
+                <!-- Portfolio Projects -->
+                <div class="input-group">
+                    <label for="project_title">Project Title</label>
+                    <input class="input-field" type="text" id="project_title" name="project_title" placeholder="Project title">
+                </div>
+
+                <div class="input-group">
+                    <label for="project_description">Project Description</label>
+                    <textarea class="input-field" id="project_description" name="project_description" rows="3" placeholder="Describe your project"></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="project_link">Project Link</label>
+                    <input class="input-field" type="url" id="project_link" name="project_link" placeholder="Link to the project">
+                </div>
+
+                <!-- Social Links -->
+                <h4>Social Links</h4>
+                <div class="input-group">
+                    <label for="twitter_link">Twitter</label>
+                    <input class="input-field" type="url" id="twitter_link" name="twitter_link" placeholder="https://twitter.com/username">
+                </div>
+
+                <div class="input-group">
+                    <label for="github_link">GitHub</label>
+                    <input class="input-field" type="url" id="github_link" name="github_link" placeholder="https://github.com/username">
+                </div>
+
+                <div class="input-group">
+                    <label for="linkedin_link">LinkedIn</label>
+                    <input class="input-field" type="url" id="linkedin_link" name="linkedin_link" placeholder="https://linkedin.com/in/username">
+                </div>
+
+                <!-- Submit Button -->
+                <input id="create-btn" type="submit" value="Update Portfolio" class="submit-btn">
+            </form>
+        </div>
+    </section>
+
+    <script>
+        // Preview uploaded profile picture
+        document.getElementById('profile_pic_input').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('preview_pic').src = e.target.result;
+                    document.getElementById('preview_pic').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Handle form submission
+        document.getElementById('update-portfolio-form').addEventListener('submit', async function (event) {
+            event.preventDefault(); // Prevent the form from submitting the traditional way
+            const formData = new FormData(this);
+
+            try {
+                const response = await fetch('/api/update-portfolio', {
+                    method: 'POST',
+                    body: formData,
+                });
+                
+                if (response.ok) {
+                    alert('Portfolio updated successfully');
+                    // Optionally, reload the page to reflect changes
+                    location.reload();
+                } else {
+                    alert('Failed to update portfolio');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+
+</body>
+
+</html>
