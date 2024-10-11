@@ -1246,3 +1246,37 @@ input[type="file"] {
 
 
 
+.file-upload-wrapper {
+  position: relative;
+  overflow: hidden;
+  margin: 10px 0;
+  display: inline-block;
+}
+
+input[type="file"] {
+  font-size: 20px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0; /* Hide the default input */
+  cursor: pointer; /* Change cursor to pointer */
+  height: 100%; /* Take full height of the wrapper */
+  width: 100%; /* Take full width of the wrapper */
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  cursor: pointer;
+  border: 1px solid #007BFF; /* Blue border */
+  border-radius: 5px; /* Rounded corners */
+  background-color: #007BFF; /* Blue background */
+  color: white; /* White text */
+  font-weight: bold; /* Bold text */
+  transition: background-color 0.3s, border-color 0.3s; /* Smooth transition */
+}
+
+.custom-file-upload:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  border-color: #0056b3; /* Darker blue border on hover */
+}
